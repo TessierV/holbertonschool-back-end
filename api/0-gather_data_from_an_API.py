@@ -12,7 +12,7 @@ if __name__ == '__main__':
     """API"""
     """ EXTRACT USER DATA """
     employee_id = sys.argv[1]
-    employee_url = "https://jsonplaceholder.typicode.com/users/{employee_id}"
+    employee_url = "https://jsonplaceholder.typicode.com/users/{}".format(employee_id)
     extract_employee = requests.get(employee_url).json()
     EMPLOYEE_NAME = extract_employee.get('name')
 
