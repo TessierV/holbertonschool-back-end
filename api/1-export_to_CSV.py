@@ -26,13 +26,9 @@ if __name__ == '__main__':
     task_url = "https://jsonplaceholder.typicode.com/todos/"
     extract_task = requests.get(task_url).json()
 
-    with open('{}.csv'.format(emp_id), mode='w') as csv_file:
-        fieldnames = ['USER_ID', 'USERNAME', 'TASK_COMPLETED_STATUS', 'TASK_TITLE']
-        writer = csv.DictWriter(csv_file, fieldnames=fieldnames)
+    with open("{}.csv".format(emp_id), mode='w') as csv_file:
+        writer = csv.writer(csv_file, quoting=csv.QUOTE_ALL)
 
-        writer.writeheader()
         for i in extract_task:
-            if i.get('userId') == int(emp_id):
-                writer.writerow({'USER_ID': emp_id, 'USERNAME': EMPLOYEE_NAME,
-                                 'TASK_COMPLETED_STATUS': i.get('completed'), 'TASK_TITLE': i.get('title')})
-    print("Employee {}'s task data has been exported to {}.csv".format(EMPLOYEE_NAME, emp_id))
+            writer.writerow([emp_id, EMPLOYEE_NAME,
+                            i.get("completed"), i.get("title")])
