@@ -10,15 +10,15 @@ import sys
 
 if __name__ == '__main__':
     """ Format """
+
     TASK_TITLE = []
     NUMBER_OF_DONE_TASKS = 0
     TOTAL_NUMBER_OF_TASKS = 0
     """API"""
     """ EXTRACT USER DATA """
-    employee_id = sys.argv[1]
-    employee_url = "https://jsonplaceholder.typicode.com/users/{}"
-    .format(employee_id)
-    extract_employee = requests.get(employee_url).json()
+    emp_id = sys.argv[1]
+    emp_url = "https://jsonplaceholder.typicode.com/users/{}".format(emp_id)
+    extract_employee = requests.get(emp_url).json()
     EMPLOYEE_NAME = extract_employee.get('name')
 
     """ EXTRACT TASK """
@@ -26,7 +26,7 @@ if __name__ == '__main__':
     extract_task = requests.get(task_url).json()
 
     for i in extract_task:
-        if i.get('userId') == int(employee_id):
+        if i.get('userId') == int(emp_id):
             if i.get('completed') is True:
                 TASK_TITLE.append(i['title'])
                 NUMBER_OF_DONE_TASKS += 1
