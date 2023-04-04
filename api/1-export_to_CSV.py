@@ -17,7 +17,7 @@ if __name__ == '__main__':
     EMPLOYEE_NAME = extract_employee.get('name')
 
     # Extract tasks from the API and write to CSV file
-    task_url = "https://jsonplaceholder.typicode.com/todos/"
+    task_url = f"https://jsonplaceholder.typicode.com/todos/?userId={emp_id}"
     with requests.get(task_url) as response:
         extract_task = response.json()
     with open(f"{emp_id}.csv", mode='w') as fil:
