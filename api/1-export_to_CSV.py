@@ -8,27 +8,28 @@ import csv
 import requests
 import sys
 
-
 if __name__ == '__main__':
-    """ Format """
-
-    TASK_TITLE = []
-    NUMBER_OF_DONE_TASKS = 0
-    TOTAL_NUMBER_OF_TASKS = 0
-    """API"""
-    """ EXTRACT USER DATA """
+    # Extract employee data from the API
     emp_id = sys.argv[1]
-    emp_url = "https://jsonplaceholder.typicode.com/users/{}".format(emp_id)
-    extract_employee = requests.get(emp_url).json()
+    emp_url = f"https://jsonplaceholder.typicode.com/users/{emp_id}"
+    with requests.get(emp_url) as response:
+        extract_employee = response.json()
     EMPLOYEE_NAME = extract_employee.get('name')
 
-    """ EXTRACT TASK """
+    # Extract tasks from the API and write to CSV file
     task_url = "https://jsonplaceholder.typicode.com/todos/"
-    extract_task = requests.get(task_url).json()
+    with requests.get(task_url) as response:
+        extract_task = response.json()
+    with open(f"{emp_id}.csv", mode='w') as csv_file:
+        fieldnames = ['emp_id', 'employee_name', 'completed', 'title']
+        writer = csv.DictWriter(csv_file, fieldnames=fieldnames, quoting=csv.QUOTE_ALL)
+        writer.writeheader()
 
-    with open("{}.csv".format(emp_id), mode='w') as csv_file:
-        writer = csv.writer(csv_file, quoting=csv.QUOTE_ALL)
-
-        for i in extract_task:
-            writer.writerow([emp_id, EMPLOYEE_NAME,
-                            i.get("completed"), i.get("title")])
+        for task in extract_task:
+            if task.get('userId') == int(emp_id):
+                writer.writerow({
+                    'emp_id': emp_id,
+                    'employee_name': EMPLOYEE_NAME,
+                    'completed': task.get('completed'),
+                    'title': task.get('title')
+                })
