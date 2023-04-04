@@ -20,9 +20,9 @@ if __name__ == '__main__':
     task_url = "https://jsonplaceholder.typicode.com/todos/"
     with requests.get(task_url) as response:
         extract_task = response.json()
-    with open(f"{emp_id}.csv", mode='w') as csv_file:
-        fieldnames = ['emp_id', 'employee_name', 'completed', 'title']
-        writer = csv.DictWriter(csv_file, fieldnames=fieldnames, quoting=csv.QUOTE_ALL)
+    with open(f"{emp_id}.csv", mode='w') as fil:
+        field = ['emp_id', 'employee_name', 'completed', 'title']
+        writer = csv.DictWriter(fil, fieldnames=field, quoting=csv.QUOTE_ALL)
         writer.writeheader()
 
         for task in extract_task:
