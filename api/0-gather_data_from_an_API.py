@@ -23,7 +23,7 @@ if __name__ == '__main__':
     """ Format """
     TASK_TITLE = []
     NUMBER_OF_DONE_TASKS = 0
-    TOTAL_NUMBER_OF_TASKS = len(extract_task)
+    TOTAL_NUMBER_OF_TASKS = len(NUMBER_OF_DONE_TASKS)
 
     for i in extract_task:
         if i.get('completed') is True:
