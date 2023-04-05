@@ -25,7 +25,7 @@ if __name__ == '__main__':
     TOTAL_NUMBER_OF_TASKS = 0
     TASK_TITLE = []
     for todo in user_tasks_json:
-        if todo.get("userId") == employee_id:
+        if todo.get("userId") == int(employee_id):
             employee_todo = todo
             if employee_todo.get('completed') is True:
                 NUMBER_OF_DONE_TASKS += 1
