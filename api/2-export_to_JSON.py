@@ -1,8 +1,8 @@
 #!/usr/bin/python3
 """
-Write a Python script that,
-using this REST API, for a given employee ID,
-returns information about his/her TODO list progress.
+Using what you did in the task #0,
+extend your Python script to export data
+in the JSON format.
 """
 import json
 import requests
@@ -20,7 +20,8 @@ if __name__ == '__main__':
     EMPLOYEE_USERNAME = extract_employee.get('username')
 
     """ EXTRACT TASK """
-    task_url = 'https://jsonplaceholder.typicode.com/todos?userId={}'.format(emp_id)
+    task_url = 'https://jsonplaceholder.typicode.com/todos?userId={}'.format(
+        emp_id)
     extract_task = requests.get(task_url).json()
 
     with open("{}.json".format(emp_id), "w") as user_id:
